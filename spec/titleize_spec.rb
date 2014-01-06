@@ -99,7 +99,7 @@ describe Titleize do
       titleize("the SEC's decision").should == "The SEC's Decision"
     end
 
-    it "should not capitalize words with dots" do 
+    it "should not capitalize words with dots" do
       titleize("del.icio.us web site").should == "del.icio.us Web Site"
     end
 
@@ -108,7 +108,7 @@ describe Titleize do
       titleize("ends with 'quotation.'").should == "Ends With 'Quotation.'"
     end
 
-    it "should not capitalize words that have a lowercase first letter" do 
+    it "should not capitalize words that have a lowercase first letter" do
       titleize("iTunes").should == "iTunes"
     end
 
@@ -257,15 +257,15 @@ describe ActiveSupport::Inflector do
 
     it "should replace Inflector.titleize" do
       Titleize.should_receive(:titleize).with(@title)
-      ActiveSupport::Inflector.stub!(:underscore).and_return(@title)
-      ActiveSupport::Inflector.stub!(:humanize).and_return(@title)
+      ActiveSupport::Inflector.stub(:underscore).and_return(@title)
+      ActiveSupport::Inflector.stub(:humanize).and_return(@title)
       ActiveSupport::Inflector.titleize(@title)
     end
 
     it "should be aliased as titlecase" do
       ActiveSupport::Inflector.singleton_methods.map(&:to_sym).should include(:titlecase)
-      ActiveSupport::Inflector.stub!(:titlecase).and_return("title")
-      ActiveSupport::Inflector.stub!(:titleize).and_return("title")
+      ActiveSupport::Inflector.stub(:titlecase).and_return("title")
+      ActiveSupport::Inflector.stub(:titleize).and_return("title")
       ActiveSupport::Inflector.titlecase("this").should == ActiveSupport::Inflector.titleize("this")
     end
   end
