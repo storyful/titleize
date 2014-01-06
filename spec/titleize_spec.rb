@@ -128,6 +128,14 @@ describe Titleize do
       it "should not capitalize small words within a hyphenated word" do
         titleize("step-by-step directions").should == "Step-by-Step Directions"
       end
+
+      it "should not munge hyphenated acronyms" do
+        titleize("this is a test ABC-DE").should == "This Is a Test ABC-DE"
+      end
+
+      it "should not munge hyphenated acronyms 2" do
+        titleize("this is a test A-B").should == "This Is a Test A-B"
+      end
     end
 
     it "should fix all-caps titles" do

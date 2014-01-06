@@ -34,7 +34,7 @@ module Titleize
           word
         when /[-‑]/  # hyphenated word (regular and non-breaking)
           word.split(/([-‑])/).map do |part|
-            SMALL_WORDS.include?(part) ? part : part.capitalize
+            SMALL_WORDS.include?(part) ? part : capitalize_unless_all_caps(part)
           end.join
         when /^[[:alpha:]].*[[:upper:]]/ # non-first letter capitalized already
           word
@@ -49,6 +49,14 @@ module Titleize
         end
       end.join(" ")
     end.join(" ")
+  end
+
+  def capitalize_unless_all_caps(part)
+    if part =~ /[[:lower:]]/
+      part.capitalize
+    else
+      part
+    end
   end
 
   # Splits a title into an array based on punctuation.
@@ -108,7 +116,7 @@ if defined? ActiveSupport
     # This replaces the default Rails titleize. Like the default, it uses
     # Inflector.underscore and Inflector.humanize to convert
     # underscored_names and CamelCaseNames to a more human form. However, you can change
-    # this behavior by passing :humanize => false or :underscore => false as options. 
+    # this behavior by passing :humanize => false or :underscore => false as options.
     # This can be useful when dealing with words like "iPod" and "GPS".
     #
     # titleize is also aliased as titlecase.
